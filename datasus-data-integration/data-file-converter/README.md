@@ -11,7 +11,8 @@ datasus-data-integration/
 │   	│   ├── input/
 │   	│   ├── output/
 │   	│   └── reference/
-│		└── src/
+|     |
+│		  └── src/
 │   	│	├── main.py
 │   	│	├── data_processing/
 │   	│	│   ├── __init__.py
@@ -78,23 +79,13 @@ datasus-data-integration/
 │   	│	    ├── test_xml_processor.py
 │   	│	    ├── test_json_reader.py
 │   	│	    └── test_json_processor.py
-		
+│     |
+|     ├── requirements.txt                        >> Lista de dependências do projeto.
+|     ├── README.md                               >> Arquivo de documentação do projeto.
+|     └── .gitignore                              >> Arquivo para especificar quais arquivos/directórios devem ser ignorados pelo Git.
 ```
-## Criando Estrutura de Diretórios no VS Code
-- **Diretório Principal:** D:\GitHub\datasus\datasus-data-integration\data-file-converter
-- Via Terminal PorwerShell
 
-### 1. Criar o ambiente virtual :
-- #### Navegar até o diretório onde deseja criar o ambiente virtual
-  *PS D:\GitHub\datasus\datasus-data-integration\data-file-converter>* ```cd D:\GitHub\datasus\datasus-data-integration\data-file-converter```
-- #### Criar o ambiente virtual
-  *PS D:\GitHub\datasus\datasus-data-integration\data-file-converter>* ```python -m venv venv```
-
-### 2. Ativar o ambiente virtual:
-- #### Ativar o ambiente virtual no Windows
-  *PS D:\GitHub\datasus\datasus-data-integration\data-file-converter>* ```.\venv\Scripts\Activate.ps1```
-
-### 3. Criar a estrutura de diretórios e arquivos do projeto:
+## Criar a estrutura de diretórios e arquivos do projeto:
 - #### Criar diretórios
 ```
 mkdir data
@@ -118,6 +109,7 @@ mkdir src\tests
 
 ```
 - #### Criar os arquivos .gitkeep dentro dos diretórios
+```
 New-Item -Path data\input\.gitkeep -ItemType File
 New-Item -Path data\output\.gitkeep -ItemType File
 New-Item -Path data\reference\.gitkeep -ItemType File

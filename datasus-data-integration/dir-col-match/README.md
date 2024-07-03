@@ -17,7 +17,7 @@ project_root/                  >> Diretório raiz do projeto.
 │   ├── utils/                       >> Pacote com módulos utilitários.                   
 │   │   ├── __init__.py                     >> 
 │   │   ├── logger.py                       >> Módulo para configuração de logs.
-│   │   ├── logger.py                       >> Módulo para configuração do projeto.
+│   │   ├── config.py                       >> Módulo para configuração do projeto.
 │   └── tests/                       >> Pacote para os testes unitários.
 │       ├── __init__.py                     >>
 │       ├── test_file_reader.py             >> Pacote para os testes unitários.
@@ -33,21 +33,8 @@ project_root/                  >> Diretório raiz do projeto.
 ├── README.md                               >> Arquivo de documentação do projeto.
 └── .gitignore                              >> Arquivo para especificar quais arquivos/directórios devem ser ignorados pelo Git.
 ```
-## Criando Estrutura de Diretórios no VS Code
-- **Diretório Principal:** D:\GitHub\datasus\datasus-data-integration\dir-col-match
-- Via Terminal PorwerShell
 
-### 1. Criar o ambiente virtual :
-- #### Navegar até o diretório onde deseja criar o ambiente virtual
-  *PS D:\GitHub\datasus\datasus-data-integration\dir-col-match>* ```cd D:\GitHub\datasus\datasus-data-integration\dir-col-match```
-- #### Criar o ambiente virtual
-  *PS D:\GitHub\datasus\datasus-data-integration\dir-col-match>* ```python -m venv venv```
-
-### 2. Ativar o ambiente virtual:
-- #### Ativar o ambiente virtual no Windows
-  *PS D:\GitHub\datasus\datasus-data-integration\dir-col-match>* ```.\venv\Scripts\Activate.ps1```
-
-### 3. Criar a estrutura de diretórios e arquivos do projeto:
+## Criar a estrutura de diretórios e arquivos do projeto:
 - #### Criar diretórios
 ```
 mkdir src
