@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/ 
+
+# Config files
+*.env
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Ignorar os arquivos dentro da pasta data/input
+data/input/*
+!data/input/.gitkeep
+
+# Ignorar os arquivos dentro da pasta data/reference
+data/reference/*
+!data/reference/.gitkeep
+
+# Ignorar todos os arquivos dentro de data/output
+data/output/*
+!data/output/.gitkeep
