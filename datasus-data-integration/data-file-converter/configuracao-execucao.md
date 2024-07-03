@@ -12,7 +12,7 @@
 
 ### Instalar dependências
 - #### Instalação de Módulos listados
-*PS D:\GitHub\datasus\datasus-data-integration\data-file-converter>* ```pip install -r requirements.txt```
+  *PS D:\GitHub\datasus\datasus-data-integration\data-file-converter>* ```pip install -r requirements.txt```
 
 ### Executar a aplicação
 *PS D:\GitHub\datasus\datasus-data-integration\data-file-converter>* ```python src/main.py```

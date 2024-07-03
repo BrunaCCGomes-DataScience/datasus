@@ -13,7 +13,7 @@
 
 ### Instalar dependências
 - #### Instalação de Módulos listados
-*PS D:\GitHub\datasus\datasus-data-integration\dir-col-match>* ```pip install -r requirements.txt```
+  *PS D:\GitHub\datasus\datasus-data-integration\dir-col-match>* ```pip install -r requirements.txt```
 
 ### Executar a aplicação
 *PS D:\GitHub\datasus\datasus-data-integration\dir-col-match>* ```python src/main.py```
