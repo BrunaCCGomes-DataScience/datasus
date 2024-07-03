@@ -9,6 +9,7 @@
    - `main.py`: Arquivo principal que executa o fluxo da aplicação. Pode conter a lógica inicial para integração dos módulos.
    
 3. **Módulos de processamento de dados:**
+   - `directory_reader.py`: Esta classe terá métodos para ler nomes de arquivos de um diretório com base nos filtros definidos no config.py.
    - `file_reader.py`: Implementar a leitura dos arquivos do diretório de referência.
    - `file_comparator.py`: Desenvolver a lógica para comparar os nomes das colunas com os nomes dos arquivos.
    - `file_copier.py`: Implementar a cópia dos arquivos correspondentes aos nomes das colunas.
@@ -18,6 +19,7 @@
    - `config.py`: Definir configurações gerais do projeto, como parâmetros de entrada e diretórios.
 
 5. **Testes unitários:**
+   - `test_directory_reader.py`: Criar testes para os métodos de leitura nomes de arquivos de um diretório com base nos filtros definidos no config.py.
    - `test_file_reader.py`: Criar testes para o módulo de leitura de arquivos.
    - `test_file_comparator.py`: Implementar testes para verificar a correta comparação de nomes.
    - `test_file_copier.py`: Desenvolver testes para garantir que a cópia de arquivos funcione corretamente.

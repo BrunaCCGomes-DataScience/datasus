@@ -57,12 +57,22 @@ mkdir src/tests
 mkdir data
 mkdir data/input
 mkdir data/output
+mkdir data/output/no_uf
+mkdir data/output/uf
 mkdir data/reference
+mkdir data/reference/CNV
 ```
+- #### Criar os arquivos .gitkeep dentro dos diretórios
+New-Item -Path data/input/.gitkeep -ItemType File
+New-Item -Path data/output/no_uf/.gitkeep -ItemType File
+New-Item -Path data/output/uf/.gitkeep -ItemType File
+New-Item -Path data/reference/CNV/.gitkeep -ItemType File
+
 - #### Criar arquivos dentro de src
 ```
 New-Item -ItemType file .\src\main.py
 New-Item -ItemType file .\src\data_processing\__init__.py
+New-Item -ItemType file .\src\data_processing\directory_reader.py
 New-Item -ItemType file .\src\data_processing\file_reader.py
 New-Item -ItemType file .\src\data_processing\file_comparator.py
 New-Item -ItemType file .\src\data_processing\file_copier.py
@@ -73,6 +83,7 @@ New-Item -ItemType file .\src\utils\config.py
 - #### Criar arquivos dentro de tests
 ```
 New-Item -ItemType file .\src\tests\__init__.py
+New-Item -ItemType file .\src\tests\test_directory_reader.py
 New-Item -ItemType file .\src\tests\test_file_reader.py
 New-Item -ItemType file .\src\tests\test_file_comparator.py
 New-Item -ItemType file .\src\tests\test_file_copier.py
@@ -81,5 +92,7 @@ New-Item -ItemType file .\src\tests\test_file_copier.py
 ```
 New-Item -ItemType file .\requirements.txt
 New-Item -ItemType file .\README.md
+New-Item -ItemType file .\configuracao-execucao.md
+New-Item -ItemType file .\implementacao.md
 New-Item -ItemType file .\.gitignore
 ```
