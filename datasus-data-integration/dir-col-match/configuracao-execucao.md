@@ -31,10 +31,9 @@ python src/main.py
 ```
 
 *bash*
-
 #### 1.2. `.gitignore`
 
-```plaintext
+```
 # Python
 __pycache__/
 *.py[cod]
