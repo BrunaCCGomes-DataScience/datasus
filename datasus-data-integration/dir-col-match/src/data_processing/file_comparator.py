@@ -1,17 +1,45 @@
-import os
+# data_integration/data_processing/file_comparator.py
+
+from utils.config import Config
 
 class FileComparator:
-    def __init__(self, directory_path, column_names):
-        self.directory_path = directory_path
-        self.column_names = column_names
+    def __init__(self):
+        self.config = Config()
 
-    def find_matching_files(self):
-        matched_files = []
-        for file_name in os.listdir(self.directory_path):
-            file_path = os.path.join(self.directory_path, file_name)
-            if os.path.isfile(file_path) and self._matches_columns(file_name):
-                matched_files.append(file_path)
-        return matched_files
+    def compare_column_names_with_files(self, column_names, files, include=False):
+        matching_files = []
+        prefix = f"{self.config.sigla_uf}_"
 
-    def _matches_columns(self, file_name):
-        return any(column_name in file_name for column_name in self.column_names)
+        for column in column_names:
+            # new_column_name = (prefix + column).lower()
+            for file in files:
+                # Remove extensão do arquivo para comparação
+                file_name = (file.split('.')[0]).lower()
+                column_nm = column
+                if "_" in column:
+                    column_nm = (column.split('_')[1]).lower()
+                if include:
+                    # Adiciona o prefixo da sigla do estado aos nomes das colunas
+                    # new_column_name = (prefix + column).lower()
+                    new_column_name = (prefix + column_nm).lower()
+                    if file_name == new_column_name:
+                        matching_files.append(file)
+                else:
+                    if file_name == column_nm.lower():
+                        matching_files.append(file)
+
+
+                # # Adiciona o prefixo da sigla do estado aos nomes das colunas
+                # if file_name == new_column_name:
+                #     matching_files.append(file)
+        return matching_files        
+        
+        # for column in column_names:
+        #     new_column_name = (prefix + column).lower()
+        #     for file in files:
+        #         # Remove extensão do arquivo para comparação
+        #         file_name = file.split('.')[0]
+        #         # Adiciona o prefixo da sigla do estado aos nomes das colunas
+        #         if file_name == prefix + column:
+        #             matching_files.append(file)
+        # return matching_files

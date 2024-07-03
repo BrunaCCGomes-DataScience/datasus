@@ -1,13 +1,23 @@
-import os
+# data_integration/data_processing/file_copier.py
+
 import shutil
+import os
+from utils.config import Config
 
 class FileCopier:
-    def __init__(self, destination_path):
-        self.destination_path = destination_path
+    def __init__(self):
+        self.config = Config()
 
-    def copy_files(self, file_paths):
-        if not os.path.exists(self.destination_path):
-            os.makedirs(self.destination_path)
+    def copy_matching_files(self, matching_files, destination_path_copy_files, prefix=True):
+        if prefix:
+            # Criar diretório  o prefixo da sigla do estado aos nomes das colunas
+            if not os.path.exists(self.config.destination_path_file_with_prefix):
+                os.makedirs(self.config.destination_path_file_with_prefix)
+        else:
+            if not os.path.exists(self.config.destination_path_file_no_prefix):
+                os.makedirs(self.config.destination_path_file_no_prefix)
 
-        for file_path in file_paths:
-            shutil.copy(file_path, self.destination_path)
+        for file in matching_files:
+            source = os.path.join(self.config.directory_files_compare_path, file)
+            destination = os.path.join(destination_path_copy_files, file)
+            shutil.copyfile(source, destination)

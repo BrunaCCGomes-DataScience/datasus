@@ -21,5 +21,18 @@ venv.bak/
 .DS_Store
 Thumbs.db
 
-# Ignorar o arquivo dataset.csv na pasta data/input
-data/input/dataset.csv
+# Ignorar os arquivos dentro da pasta data/input
+data/input/*
+!data/input/.gitkeep
+
+# Ignorar os arquivos dentro da pasta data/reference
+data/reference/CNV/*
+!data/reference/CNV/.gitkeep
+
+# Ignorar todos os arquivos dentro de data/output/no_uf
+data/output/no_uf/*
+!data/output/no_uf/.gitkeep
+
+# Ignorar todos os arquivos dentro de data/output/uf
+data/output/uf/*
+!data/output/uf/.gitkeep
