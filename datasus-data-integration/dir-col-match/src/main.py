@@ -1,9 +1,8 @@
-import os
-from src.utils.logger import setup_logger
-from src.data_processing.file_reader import FileReader
-from src.data_processing.file_comparator import FileComparator
-from src.data_processing.file_copier import FileCopier
-from src.utils.config import Config
+from utils.logger import setup_logger
+from data_processing.file_reader import FileReader
+from data_processing.file_comparator import FileComparator
+from data_processing.file_copier import FileCopier
+from utils.config import Config
 
 def main():
     # Setup logger

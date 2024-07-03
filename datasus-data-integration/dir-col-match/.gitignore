@@ -20,3 +20,6 @@ venv.bak/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Ignorar o arquivo dataset.csv na pasta data/input
+data/input/dataset.csv
