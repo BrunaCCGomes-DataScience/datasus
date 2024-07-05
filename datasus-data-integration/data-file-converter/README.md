@@ -6,21 +6,20 @@ A estrutura de diretórios para o projeto deve ser organizada da seguinte forma:
 
 ```plaintext
 datasus-data-integration/
-│   └── data-file-converter/
-│   	└── data/
-│   	│   ├── input/
-│   	│   ├── output/
-│   	│   └── reference/
-|     |
-│		  └── src/
-│   	│	├── main.py
-│   	│	├── data_processing/
-│   	│	│   ├── __init__.py
+│   └── data-file-converter/            >> Diretório raiz do projeto.
+│   	└── data/                       >> Diretório para armazenar os dados utilizados e gerados pelo projeto.
+│   	│   ├── input/                      >> Contém os arquivos de entrada.
+│   	│   ├── output/                     >> Contém os arquivos de saída. 
+│   	│   └── reference/                  >> Contém os arquivos de referência.
+|       |
+│		└── src/                        >> Contém todo o código-fonte do projeto.
+│   	│	├── main.py                     >> Arquivo principal que executa o fluxo da aplicação. Pode conter a lógica inicial para integração dos módulos.
+│   	│	├── data_processing/         >> Pacote com os módulos de processamento de dados.
 │   	│	│   ├── dbc/
-│   	│	│   │   ├── __init__.py
-│   	│	│   │   ├── dbc_reader.py
-│   	│	│   │   ├── dbc_processor.py
-│   	│	│   │   └── dbc_writer.py
+│   	│	│   │   ├── __init__.py         
+│   	│	│   │   ├── dbc_reader.py       >> Implementar a leitura de arquivos .dbc.
+│   	│	│   │   ├── dbc_processor.py    >> Implementar o processamento de dados específicos 
+│   	│	│   │   └── dbc_writer.py       >> Implementar a escrita de arquivos .dbc.
 │   	│	│   ├── csv/
 │   	│	│   │   ├── __init__.py
 │   	│	│   │   ├── csv_reader.py
@@ -56,33 +55,40 @@ datasus-data-integration/
 │   	│	│   │   ├── json_reader.py
 │   	│	│   │   ├── json_processor.py
 │   	│	│   │   └── json_writer.py
-│   	│	│   └── __init__.py
 │   	│	├── utils/
 │   	│	│   ├── __init__.py
-│   	│	│   ├── logger.py
-│   	│	│   └── config.py
+│   	│	│   ├── logger.py               >> Módulo para configuração de logs.
+│   	│	│   └── config.py               >> Módulo para configuração do projeto.
 │   	│	└── tests/
 │   	│	    ├── __init__.py
 │   	│	    ├── test_dbc_reader.py
 │   	│	    ├── test_dbc_processor.py
+│   	│	    ├── test_dbc_writer.py
 │   	│	    ├── test_csv_reader.py
 │   	│	    ├── test_csv_processor.py
+│   	│	    ├── test_csv_writer.py
 │   	│	    ├── test_txt_reader.py
 │   	│	    ├── test_txt_processor.py
+│   	│	    ├── test_txt_writer.py
 │   	│	    ├── test_dbf_reader.py
 │   	│	    ├── test_dbf_processor.py
+│   	│	    ├── test_dbf_writer.py
 │   	│	    ├── test_dat_reader.py
 │   	│	    ├── test_dat_processor.py
+│   	│	    ├── test_dat_writer.py
 │   	│	    ├── test_xls_reader.py
 │   	│	    ├── test_xls_processor.py
+│   	│	    ├── test_xls_writer.py
 │   	│	    ├── test_xml_reader.py
 │   	│	    ├── test_xml_processor.py
+│   	│	    ├── test_xml_writer.py
 │   	│	    ├── test_json_reader.py
-│   	│	    └── test_json_processor.py
-│     |
-|     ├── requirements.txt                        >> Lista de dependências do projeto.
-|     ├── README.md                               >> Arquivo de documentação do projeto.
-|     └── .gitignore                              >> Arquivo para especificar quais arquivos/directórios devem ser ignorados pelo Git.
+│   	│	    ├── test_json_processor.py
+│   	│	    └── test_json_writer.py
+│       |
+|       ├── requirements.txt                        >> Lista de dependências do projeto.
+|       ├── README.md                               >> Arquivo de documentação do projeto.
+|       └── .gitignore                              >> Arquivo para especificar quais arquivos/directórios devem ser ignorados pelo Git.
 ```
 
 ## Criar a estrutura de diretórios e arquivos do projeto:

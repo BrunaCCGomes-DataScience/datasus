@@ -11,6 +11,7 @@ project_root/                  >> Diretório raiz do projeto.
 │   ├── main.py                >> Arquivo principal que executa o fluxo da aplicação.
 │   ├── data_processing/             >> Pacote com os módulos de processamento de dados.
 │   │   ├── __init__.py                     >> 
+│   │   ├── directory_reader.py             >> Módulo responsável pela seleção de arquivos.
 │   │   ├── file_reader.py                  >> Módulo responsável pela leitura dos arquivos.
 │   │   ├── file_comparator.py              >> Módulo responsável pela comparação dos arquivos.
 │   │   └── file_copier.py                  >> Módulo responsável pela cópia dos arquivos.
@@ -20,7 +21,8 @@ project_root/                  >> Diretório raiz do projeto.
 │   │   ├── config.py                       >> Módulo para configuração do projeto.
 │   └── tests/                       >> Pacote para os testes unitários.
 │       ├── __init__.py                     >>
-│       ├── test_file_reader.py             >> Pacote para os testes unitários.
+│       ├── test_directory_reader.py        >> Testes para o módulo de seleção de arquivos.
+│       ├── test_file_reader.py             >> Testes para o módulo de leitura de arquivos.
 │       ├── test_file_comparator.py         >> Testes para o módulo de comparação de arquivos.
 │       └── test_file_copier.py             >> Testes para o módulo de cópia de arquivos.
 │
