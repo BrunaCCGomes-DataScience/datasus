@@ -1,5 +1,3 @@
-#### Arquitetura do Sistema Back-End
-
 ## Visão da Estrutura de Diretórios
 
 A estrutura de diretórios para o projeto deve ser organizada da seguinte forma:
