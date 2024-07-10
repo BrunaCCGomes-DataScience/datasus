@@ -1,86 +1,72 @@
 from dbfread import DBF
-import dbf
+# import dbf
 # from simpledbf import Dbf5
 import os
-import pandas as pd
+# import pandas as pd
+from pandas import DataFrame
 # import dbf_reader
+# import csv.csv_writer
 from utils.config import Config
+from unicodedata import normalize
+import sys
+import csv
 
 class DBCReader:
     def __init__(self, input_dir):
         self.config = Config()
 
+    # Escreve arquivo .csv a partir do .DBF
+    # Verifica estrutura de diretório e arquivo
+    def write_file_csv(self, table_csv):
+        path_output_dir = self.config.output_dir
+        os.makedirs(path_output_dir, exist_ok=True)
+        file_path_output_dir = os.path.join(path_output_dir, 'output.csv')
+        
+        # Escrita do arquivo CSV após verificação de diretório e arquivo
+        with open(file_path_output_dir, mode='w', newline='', encoding='cp1252') as file:
+            writer = csv.writer(file, delimiter=';',quoting=csv.QUOTE_NONE, escapechar='\\')            
+            writer.writerow(table_csv.field_names)
+            for record in table_csv:
+                writer.writerow(list(record.values()))
+
+        # Leitura do arquivo CSV após escrita
+        with open(file_path_output_dir, mode='r', newline='', encoding='cp1252') as file:
+            reader = csv.reader(file, delimiter=';', quoting=csv.QUOTE_NONE, escapechar='\\')
+            header = next(reader)  # Lê a linha de cabeçalho
+            print("Cabeçalho:")
+            print(header)
+            
+            print("Primeiras 10 linhas:")
+            for _ in range(10):
+                try:
+                    row = next(reader)
+                    print(row)
+                except StopIteration:
+                    break
+    
+    # Gera pandas DataFrame a partir do .DBF
+    def write_pandas_df(self, table_df):
+        # df = DBF(path_file_df)
+        frame = DataFrame(iter(table_df))
+        print(frame)
+
     def read_files(self):
         dbc_data = []
         for filename in os.listdir(self.config.input_dir):
-            if filename.endswith(".dbc"):
+            if filename.endswith(".dbc"):            
                 file_path = os.path.join(self.config.input_dir, filename)
                 print(file_path)
-                table = DBF(file_path)
-                records = []
-                ct = 0;
-                for record in table.fields:
-                    records.append(record)
+                tblDBF = DBF(file_path, char_decode_errors='ignore', raw=True, ignore_missing_memofile=True)
+                print(tblDBF.encoding) # cp1252
+                self.write_file_csv(tblDBF)
+                self.write_pandas_df(tblDBF)
+                records_1 = [] 
+                ct = 0
+                for record in tblDBF.fields:
+                    print(record)
+                    records_1.append(record)
                     ct += 1
                     if ct == 100:
-                        break
-                
-                print(records)
-                df = pd.DataFrame(records)
-                # output_file_path = os.path.join(self.config.output_dir, filename)
-                # dbf.export(table_or_records=records, filename='xxx', format='csv', header=True)
-                # df_dbf = pd.DataFrame(records)
-                # print(records)
-                # table.close()
-                    ## Or you can change it permanently (updates the DBF file) with:
-                    ## table.open()
-                    ## table.codepage = dbf.CodePage('cp1252') # for example
-                    ## table.close()
-                    ## dbfread
-                    ##table = DBF(file_path)
-                    ##records = [record for record in table]
-                    ##df = pd.DataFrame(records)
-                dbc_data.append(df)
-        return dbc_data
-    
-    # def read_files(self):
-    #     dbc_data = []
-    #     for filename in os.listdir(self.config.input_dir):
-    #         if filename.endswith(".dbc"):
-    #             file_path = os.path.join(self.config.input_dir, filename)
-    #             print(file_path)
-    #             table = dbf.Table(filename=file_path, codepage=240)
-    #             # dbf.export(file_path, filename=None, field_names=None, format='csv', header=True, dialect='dbf', encoding=None, ignore_errors=False, strip_nulls=False)
-    #             # table = dbf.export(file_path, filename=None, field_names=None, format='csv', header=True, dialect='dbf', encoding=None, ignore_errors=False, strip_nulls=False)
-    #             # table = dbf.export(file_path)
-    #             table.open()
-                
-    #             # dbf.export(table_or_records=tb_dbf, filename='pa1', field_names=None, format='csv', header=True,)
-    #             # dbf.export(table_or_records=tb_dbf, filename='PASP1', format='csv', header=True)
-    #             # dbf.export()
-    #             #df_dbf1 = pd.DataFrame(tb_dbf)
-    #             # df_dbf1.head(3)
-    #             # dbf.export(table_or_records=df_dbf1, filename='PASP1', format='csv', header=True)
-    #             records = []
-    #             ct = 0;
-    #             for record in table.current_record:
-    #                 records.append(record)
-    #                 ct += 1
-    #                 if ct == 100:
-    #                     break
-    #             # output_file_path = os.path.join(self.config.output_dir, filename)
-    #             dbf.export(table_or_records=records, filename='xxx', format='csv', header=True)
-    #             # df_dbf = pd.DataFrame(records)
-    #             print(records)
-    #             table.close()
-    #                 ## Or you can change it permanently (updates the DBF file) with:
-    #                 ## table.open()
-    #                 ## table.codepage = dbf.CodePage('cp1252') # for example
-    #                 ## table.close()
-    #                 ## dbfread
-    #                 ##table = DBF(file_path)
-    #                 ##records = [record for record in table]
-    #                 ##df = pd.DataFrame(records)
-    #                 ##dbc_data.append(df)
-    #     return dbc_data
-
+                        break   
+                dbc_data.append(tblDBF)
+        return dbc_data         

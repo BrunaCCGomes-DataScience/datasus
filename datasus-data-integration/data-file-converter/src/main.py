@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 from data_processing.dbc.dbc_reader import DBCReader
 from data_processing.dbc.dbc_processor import DBCProcessor
 from data_processing.dbc.dbc_writer import DBCWriter
