@@ -1,19 +1,37 @@
 from dbfread import DBF
-# import dbf
-# from simpledbf import Dbf5
 import os
-# import pandas as pd
 from pandas import DataFrame
-# import dbf_reader
-# import csv.csv_writer
 from utils.config import Config
-from unicodedata import normalize
+import unicodedata
 import sys
 import csv
+import codecs
 
 class DBCReader:
     def __init__(self, input_dir):
         self.config = Config()
+
+    # Função para normalizar strings
+    def normalize_string(s):
+        print(unicodedata.normalize('NFC', s).encode('ascii', 'ignore').decode('ascii'))
+        print(unicodedata.normalize('NFD', s).encode('ascii', 'ignore').decode('ascii'))
+
+        # print(unicodedata.normalize('NFKD', s).encode('ascii', 'ignore').decode('ascii'))        
+        # print(unicodedata.normalize('NFKC', s).encode('ascii', 'ignore').decode('ascii'))
+        # print(unicodedata.normalize('NFKD', s).encode('ascii', 'ignore').decode('ascii'))
+        return unicodedata.normalize('NFD', s).encode('ascii', 'ignore').decode('ascii')
+
+    # Caminho para o arquivo DBF
+    #dbf_path = 'caminho/para/sua/tabela.dbf'
+
+    # Leitura da tabela DBF
+    # table = DBF(dbf_path, load=True)
+
+    # # Iteração sobre os registros e normalização das strings
+    # for record in table:
+    #     normalized_record = {k: normalize_string(v) if isinstance(v, str) else v for k, v in record.items()}
+    #     print(normalized_record)
+
 
     # Escreve arquivo .csv a partir do .DBF
     # Verifica estrutura de diretório e arquivo
@@ -23,14 +41,16 @@ class DBCReader:
         file_path_output_dir = os.path.join(path_output_dir, 'output.csv')
         
         # Escrita do arquivo CSV após verificação de diretório e arquivo
-        with open(file_path_output_dir, mode='w', newline='', encoding='cp1252') as file:
+        with open(file_path_output_dir, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file, delimiter=';',quoting=csv.QUOTE_NONE, escapechar='\\')            
+            # normalize(table_csv)
             writer.writerow(table_csv.field_names)
             for record in table_csv:
+                print(list(record.values()))     
                 writer.writerow(list(record.values()))
 
         # Leitura do arquivo CSV após escrita
-        with open(file_path_output_dir, mode='r', newline='', encoding='cp1252') as file:
+        with open(file_path_output_dir, mode='r', newline='', encoding='utf-8') as file:
             reader = csv.reader(file, delimiter=';', quoting=csv.QUOTE_NONE, escapechar='\\')
             header = next(reader)  # Lê a linha de cabeçalho
             print("Cabeçalho:")
@@ -56,17 +76,38 @@ class DBCReader:
             if filename.endswith(".dbc"):            
                 file_path = os.path.join(self.config.input_dir, filename)
                 print(file_path)
-                tblDBF = DBF(file_path, char_decode_errors='ignore', raw=True, ignore_missing_memofile=True)
-                print(tblDBF.encoding) # cp1252
-                self.write_file_csv(tblDBF)
-                self.write_pandas_df(tblDBF)
+                ## tblDBF = DBF(file_path, char_decode_errors='replace', encoding='utf-8', load=True, raw=True, ignore_missing_memofile=False)
+                ## print(tblDBF.encoding) # cp1252
+
+                # Leitura da tabela DBF
+                # tblDBF = DBF(file_path, load=True)
+                # tblDBF = DBF(file_path, char_decode_errors='ignore', encoding='utf-8', load=True, raw=True, ignore_missing_memofile=False)
+                # tblDBF = DBF(file_path, char_decode_errors='ignore',  load=True, raw=True, ignore_missing_memofile=False)
+                # records_1 = [] 
+                tblDBF = DBF(file_path, char_decode_errors='ignore',  load=True, raw=True, ignore_missing_memofile=False)
                 records_1 = [] 
-                ct = 0
-                for record in tblDBF.fields:
-                    print(record)
-                    records_1.append(record)
+                
+               # Iteração sobre os registros e normalização das strings
+                for record in tblDBF:
+                    normalize_rec = codecs.encode(record, 'cp1252', errors='stricts')
+                    normalized_record = {k: self.normalize_string(v) if isinstance(v, str) else v for k, v in record.items()}
+                    ct = 0
+                    print(normalized_record)
+                    records_1.append(normalized_record)
                     ct += 1
-                    if ct == 100:
+                    if ct == 25:
                         break   
-                dbc_data.append(tblDBF)
+
+                # self.write_file_csv(tblDBF)
+                # self.write_pandas_df(tblDBF)
+                # records_1 = [] 
+                # ct = 0
+                # for record in tblDBF.fields:
+                #     print(record)
+                #     records_1.append(record)
+                #     ct += 1
+                #     if ct == 100:
+                #         break   
+                #print(records_1)
+                dbc_data.append(records_1)
         return dbc_data         
