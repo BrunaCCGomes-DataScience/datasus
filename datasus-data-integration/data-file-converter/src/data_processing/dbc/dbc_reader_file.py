@@ -1,5 +1,6 @@
 from dbfread import DBF
 import os
+import encodings.cp1252
 from pandas import DataFrame
 from utils.config import Config
 import unicodedata
@@ -19,7 +20,9 @@ class DBCReaderFile:
     def read_files_codec(self,str_to_decode):
         # byte string to be converted
         # str_to_decode = b'\xc3\xa9\xc3\xa0\xc3\xb4'
+        codecs.getencoder('CP_ACP')
         print(str_to_decode)
+        
         # decoding the byte string to unicode string
         CP_ACP_string = codecs.decode(str_to_decode, 'CP_ACP')
         print(CP_ACP_string)
@@ -33,8 +36,10 @@ class DBCReaderFile:
             if filename.endswith(".dbc"):            
                 file_path = os.path.join(self.config.input_dir, filename)
                 print(file_path)
-                               
-                tblDBF = DBF(file_path, encoding='CP_ACP', char_decode_errors='strict', raw=True, load=False,  ignore_missing_memofile=True)  
+
+                tblDBF = DBF(file_path,  char_decode_errors='ignore', raw=True, load=True,  ignore_missing_memofile=True)                 
+                # tblDBF = DBF(file_path, encoding='CP_ACP', char_decode_errors='strict', raw=True, load=False,  ignore_missing_memofile=True)  
+                # tblDBF = DBF(file_path, char_decode_errors='ignore', raw=True, load=False,  ignore_missing_memofile=True)  
                 print(tblDBF.encoding)                              
                      
                 lstRecord = []       
@@ -43,12 +48,31 @@ class DBCReaderFile:
                 tblDBF.load()    
                 for chave, valor in tblDBF.records[0].items():  
                     if ct <= 25:
-                        print(f"Chave: {chave}, Valor: {valor}")
+                        print(f"Chave: {chave}, Valor: {valor}") 
+                        str_original = valor
+                        unicodedata.normalize(str_original)
+                        # bytes_encoded = str_original.decode(encoding='ascii')
+                        # print(type(bytes_encoded))
+                       
+                        #valorxpto = str_original.codecs.BOM_UTF8.decode()
                         
-                        n1_valor = valor.decode('CP_ACP')
-                        print(f"Chave: {chave}, Valor: {n1_valor}")
+                        # b_string = valor
+                        # print(b_string)
+                        # jj = str(b_string)
+                        # print(jj)
 
-                        n2_valor = valor.decode('CP_OEMCP')
+                        # encodings.normalize_encoding(encoding='ascii') 
+                        # encodings._alias_mbcs('CP_ACP')
+
+                        # str_decoded = bytes_encoded.decode()
+                        # print(type(str_decoded))                       
+                        # codecs.oem_decode
+                        xpto = codecs.Codec.encode('CP_ACP', str_original, errors='ignore')
+                        print(xpto)
+                        n1_valor = str_original.decode('CP_ACP')
+                        print(f"Chave: {chave}, Valor: {n1_valor}")
+                        
+                        n2_valor = str_original.decode('CP_OEMCP')
                         print(f"Chave: {chave}, Valor: {n2_valor}")
 
                         # lstRecord.append(tblDBF.records[0].items())

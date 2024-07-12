@@ -36,6 +36,7 @@ venv.bak/
 # OS files
 .DS_Store
 Thumbs.db
+.zip
 
 # Ignorar os arquivos dentro da pasta data/input
 data/input/*
