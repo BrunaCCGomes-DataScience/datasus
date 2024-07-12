@@ -5,16 +5,27 @@ from utils.config import Config
 import unicodedata
 import sys
 import csv
-from codecs import Codec
-# from encodings.cp1252 import Codec
+import codecs
 import encodings 
-# import encodings
+#from codecs import Codec
+# from encodings.cp1252 import Codec
 
 
 class DBCReaderFile:
     def __init__(self, input_dir):
         self.config = Config()
-        self.codec = Codec()    
+        #self.codec = Codec()    
+
+    def read_files_codec(self,str_to_decode):
+        # byte string to be converted
+        # str_to_decode = b'\xc3\xa9\xc3\xa0\xc3\xb4'
+        print(str_to_decode)
+        # decoding the byte string to unicode string
+        CP_ACP_string = codecs.decode(str_to_decode, 'CP_ACP')
+        print(CP_ACP_string)
+        CP_OEMCP_string = codecs.decode(str_to_decode, 'CP_OEMCP')        
+        print(CP_OEMCP_string)
+
 
     def read_files(self):
         dbc_data = []
@@ -22,39 +33,29 @@ class DBCReaderFile:
             if filename.endswith(".dbc"):            
                 file_path = os.path.join(self.config.input_dir, filename)
                 print(file_path)
-                ## tblDBF = DBF(file_path, char_decode_errors='replace', encoding='utf-8', load=True, raw=True, ignore_missing_memofile=False)
-                ## print(tblDBF.encoding) # cp1252
-
-                # Leitura da tabela DBF
-                # tblDBF = DBF(file_path, load=True)
-                # tblDBF = DBF(file_path, char_decode_errors='ignore', encoding='utf-8', load=True, raw=True, ignore_missing_memofile=False)
-                # tblDBF = DBF(file_path, char_decode_errors='ignore',  load=True, raw=True, ignore_missing_memofile=False)
-                # records_1 = [] 
-                # tblDBF = DBF(file_path, char_decode_errors='ignore',  load=True, raw=True, ignore_missing_memofile=False)
-                tblDBF = DBF(file_path, char_decode_errors='ignore', raw=True, ignore_missing_memofile=False)
-                records_1 = [] 
+                               
+                tblDBF = DBF(file_path, encoding='CP_ACP', char_decode_errors='strict', raw=True, load=False,  ignore_missing_memofile=True)  
+                print(tblDBF.encoding)                              
+                     
+                lstRecord = []       
+                ct = 0  
                 
-               # Iteração sobre os registros e normalização das strings
-                for record in tblDBF:
-                    normalized_record = Codec.encode(record.items, 'cp1252', errors='ignore')
-                    # normalized_record = {k: self.normalize_string(v) if isinstance(v, str) else v for k, v in record.items()}
-                    ct = 0
-                    print(normalized_record)
-                    records_1.append(normalized_record)
-                    ct += 1
-                    if ct == 25:
-                        break   
+                tblDBF.load()    
+                for chave, valor in tblDBF.records[0].items():  
+                    if ct <= 25:
+                        print(f"Chave: {chave}, Valor: {valor}")
+                        
+                        n1_valor = valor.decode('CP_ACP')
+                        print(f"Chave: {chave}, Valor: {n1_valor}")
 
-                # self.write_file_csv(tblDBF)
-                # self.write_pandas_df(tblDBF)
-                # records_1 = [] 
-                # ct = 0
-                # for record in tblDBF.fields:
-                #     print(record)
-                #     records_1.append(record)
-                #     ct += 1
-                #     if ct == 100:
-                #         break   
-                #print(records_1)
-                dbc_data.append(records_1)
+                        n2_valor = valor.decode('CP_OEMCP')
+                        print(f"Chave: {chave}, Valor: {n2_valor}")
+
+                        # lstRecord.append(tblDBF.records[0].items())
+                        lstRecord.append(valor)
+                        ct += 1
+                    else:
+                        break                           
+                dbc_data.append(lstRecord)
+                tblDBF.unload()
         return dbc_data         
