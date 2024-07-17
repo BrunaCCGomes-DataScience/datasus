@@ -10,6 +10,11 @@
 - #### Ativar o ambiente virtual no Windows
   *PS D:\GitHub\datasus\datasus-data-integration\data-file-converter>*  ```.\venv\Scripts\Activate.ps1```
 
+### Gerar arquivo com lista de Módulos de dependências
+- #### Criação de arquivo "requirements.txt"
+- #### Esse comando listará todas as dependências instaladas no ambiente virtual.
+  *PS D:\GitHub\datasus\datasus-data-integration\data-file-converter>* ```pip freeze > requirements.txt```
+
 ### Instalar dependências
 - #### Instalação de Módulos listados
   *PS D:\GitHub\datasus\datasus-data-integration\data-file-converter>* ```pip install -r requirements.txt```
